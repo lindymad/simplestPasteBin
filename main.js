@@ -35,6 +35,8 @@ document.getElementById("save").addEventListener("click", function () {
 document.getElementById("clear").addEventListener("click", function () {
     document.getElementById("title").value = '';
     document.getElementById("paste").value = '';
+    document.getElementById("copyLink").innerHTML = '';
+    document.getElementById("copyLink").href = '';
 });
 let pbs = document.querySelectorAll("#pbList a.g");
 for (let a of pbs) {
