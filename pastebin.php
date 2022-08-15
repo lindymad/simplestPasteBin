@@ -46,6 +46,7 @@ if (isset($_POST['action']))
             $htmlTitle=" : ".htmlentities($_GET['load'], ENT_QUOTES);
         }
         if (isset($_GET['contentOnly'])) {
+            header("Content-type: text/plain");
             if ($contentVal) {
                 print $contentVal;
             }
