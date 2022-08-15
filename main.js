@@ -66,6 +66,12 @@ function addGetListener(el) {
                         document.getElementById("paste").value = resp.content;
                         document.getElementById("copyLink").innerHTML = resp.url;
                         document.getElementById("copyLink").href = resp.url;
+                        let p = document.createElement("p");
+                        p.textContent = title;
+                        let htmlTitle='Simplest Pastebin : '+p.innerText;
+                        history.pushState('', htmlTitle, resp.url);
+                        document.title=htmlTitle;
+
 
                     } else {
                         alert(resp.message);

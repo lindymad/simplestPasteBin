@@ -15,9 +15,11 @@ if (isset($_POST['action']))
             $titleVal='value="'.htmlentities($_GET['load'], ENT_QUOTES).'"';
             $contentVal=file_get_contents($fn);
             $copyLink=$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            $htmlTitle=" : ".htmlentities($_GET['load'], ENT_QUOTES);
         }
     }
     else {
+        $htmlTitle="";
         $titleVal="";
         $contentVal="";
         $copyLink="";
@@ -29,7 +31,7 @@ if (isset($_POST['action']))
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Simple Pastebin</title>
+        <title>Simplest Pastebin<?php echo $htmlTitle; ?></title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
