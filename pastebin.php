@@ -112,7 +112,7 @@ function doAction($parms)
         if (file_exists($fn))
         {
 
-            $uri=$_SERVER['SCRIPT_NAME']."?load=".urlencode($parms['file']);
+            $uri=$_SERVER['SCRIPT_NAME']."?load=".urlencode($parms['file'])."&contentOnly=1";
             print json_encode(["status" => "success", "url"=>$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$uri, "content" => file_get_contents($fn)]);
         } else
         {
