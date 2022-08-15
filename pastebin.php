@@ -1,5 +1,32 @@
 <?php
-define('SAVEPATH', '/tmp');
+/**
+ * Copy the settings.ini.example file to settings.ini and set the save path there.
+ */
+
+if (file_exists("settings.ini")) {
+    $settings=parse_ini_file("settings.ini");
+
+    if (isset($settings['savePath'])) define('SAVEPATH',$settings['savePath']);
+}
+if (!defined('SAVEPATH')) {
+    ?>
+         <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Simplest Pastebin : Error</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div class='error'><p><strong>Error: no settings.ini file found, or no savePath was specified.</strong></p><p> Please copy the settings.ini.example file to settings.ini and update
+    it to use the path you wish to save your pastes in.</p><p><strong>Important</strong>: Make sure to save the files
+    somewhere outside of /tmp to ensure the OS doesn't delete them!</p>
+</div></body></html>
+    <?php
+    exit();
+}
 if (isset($_POST['action']))
 {
     doAction($_POST);
