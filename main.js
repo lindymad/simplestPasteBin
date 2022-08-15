@@ -69,7 +69,7 @@ function addGetListener(el) {
                         let p = document.createElement("p");
                         p.textContent = title;
                         let htmlTitle='Simplest Pastebin : '+p.innerText;
-                        history.pushState('', htmlTitle, resp.url);
+                        history.replaceState('', htmlTitle, resp.url);
                         document.title=htmlTitle;
 
 
