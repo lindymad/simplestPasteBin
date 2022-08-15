@@ -62,6 +62,9 @@ function addGetListener(el) {
                     if (resp.status === 'success') {
                         document.getElementById("title").value = title;
                         document.getElementById("paste").value = resp.content;
+                        document.getElementById("copyLink").innerHTML = resp.url;
+                        document.getElementById("copyLink").href = resp.url;
+
                     } else {
                         alert(resp.message);
                     }

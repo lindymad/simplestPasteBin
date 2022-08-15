@@ -8,6 +8,20 @@ if (isset($_POST['action']))
     doAction($_GET);
 } else
 {
+    if (isset($_GET['load'])) {
+        $fn = SAVEPATH . "/" . $_GET['load'] . ".pastebin";
+        if (file_exists($fn))
+        {
+            $titleVal='value="'.htmlentities($_GET['load'], ENT_QUOTES).'"';
+            $contentVal=file_get_contents($fn);
+            $copyLink=$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        }
+    }
+    else {
+        $titleVal="";
+        $contentVal="";
+        $copyLink="";
+    }
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -29,10 +43,11 @@ if (isset($_POST['action']))
             <div id="top">
                 <button id="save">Save</button>
                 <button id="clear">Clear</button>
+                <a id="copyLink" href="<?php echo $copyLink; ?>"><?php echo $copyLink; ?></a>
             </div>
             <div id="content">
-                <div id="titleWrapper"><label for="title">Title:</label><input id="title"></div>
-                <textarea id="paste"></textarea>
+                <div id="titleWrapper"><label for="title">Title:</label><input id="title" <?php echo $titleVal; ?>></div>
+                <textarea id="paste"><?php echo $contentVal; ?></textarea>
             </div>
         </div>
     </main>
@@ -68,12 +83,12 @@ function getList()
 
 function doAction($parms)
 {
-    if ($parms['action'] == "save")
+    if ($parms['action'] === "save")
     {
         $filename = $parms['title'] . ".pastebin";
         file_put_contents(SAVEPATH . "/" . $filename, $parms['content']);
         print json_encode(["status" => "success", "newList" => getList()]);
-    } else if ($parms['action'] == "delete")
+    } else if ($parms['action'] === "delete")
     {
         $fn = SAVEPATH . "/" . $parms['file'] . ".pastebin";
         if (file_exists($fn))
@@ -81,12 +96,14 @@ function doAction($parms)
             unlink($fn);
             print json_encode(["status" => "success", "newList" => getList()]);
         } else print json_encode(["status" => "error", "message" => "File '$fn' not found"]);
-    } else if ($parms['action'] == "get")
+    } else if ($parms['action'] === "get")
     {
         $fn = SAVEPATH . "/" . $parms['file'] . ".pastebin";
         if (file_exists($fn))
         {
-            print json_encode(["status" => "success", "content" => file_get_contents($fn)]);
+
+            $uri=$_SERVER['SCRIPT_NAME']."?load=".urlencode($parms['file']);
+            print json_encode(["status" => "success", "url"=>$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$uri, "content" => file_get_contents($fn)]);
         } else
         {
             print json_encode(["status" => "error", "message" => "File '$fn' not found"]);
