@@ -17,7 +17,7 @@ if (!defined('SAVEPATH')) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Simplest Pastebin : Error</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css?v=1">
     </head>
     <body>
     <div class='error'><p><strong>Error: no settings.ini file found, or no savePath was specified.</strong></p><p> Please copy the settings.ini.example file to settings.ini and update
@@ -67,7 +67,7 @@ if (isset($_POST['action']))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Simplest Pastebin<?php echo $htmlTitle; ?></title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css?v=1">
     </head>
     <body>
     <main>
@@ -88,7 +88,7 @@ if (isset($_POST['action']))
             </div>
         </div>
     </main>
-    <script src="main.js"></script>
+    <script src="main.js?v=1"></script>
     </body>
     </html>
     <?php
@@ -139,8 +139,8 @@ function doAction($parms)
         if (file_exists($fn))
         {
 
-            $uri=$_SERVER['SCRIPT_NAME']."?load=".urlencode($parms['file'])."&contentOnly=1";
-            print json_encode(["status" => "success", "url"=>$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$uri, "content" => file_get_contents($fn)]);
+            $uri=$_SERVER['SCRIPT_NAME']."?load=".urlencode($parms['file']);
+            print json_encode(["status" => "success", "url"=>$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$uri,"dUrl"=>$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$uri."&contentOnly=1", "content" => file_get_contents($fn)]);
         } else
         {
             print json_encode(["status" => "error", "message" => "File '$fn' not found"]);
