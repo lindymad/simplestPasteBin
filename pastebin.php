@@ -42,7 +42,8 @@ if (isset($_POST['action']))
         {
             $titleVal='value="'.htmlentities($_GET['load'], ENT_QUOTES).'"';
             $contentVal=file_get_contents($fn);
-            $copyLink=$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            $copyLink=$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']."&contentOnly=1";
+
             $htmlTitle=" : ".htmlentities($_GET['load'], ENT_QUOTES);
         }
         if (isset($_GET['contentOnly'])) {
