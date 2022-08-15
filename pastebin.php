@@ -10,12 +10,20 @@ if (isset($_POST['action']))
 {
     if (isset($_GET['load'])) {
         $fn = SAVEPATH . "/" . $_GET['load'] . ".pastebin";
+        $contentVal=false;
         if (file_exists($fn))
         {
             $titleVal='value="'.htmlentities($_GET['load'], ENT_QUOTES).'"';
             $contentVal=file_get_contents($fn);
             $copyLink=$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
             $htmlTitle=" : ".htmlentities($_GET['load'], ENT_QUOTES);
+        }
+        if (isset($_GET['contentOnly'])) {
+            if ($contentVal) {
+                print $contentVal;
+            }
+            else print "$fn was not found";
+            exit();
         }
     }
     else {
