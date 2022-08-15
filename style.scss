@@ -1,0 +1,65 @@
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  height: 100%;
+}
+
+#list {
+  border-right: 1px solid black;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  min-width: 10em;
+
+  a {
+    cursor: pointer;
+  }
+
+  a.d {
+    font-size: 0.6em;
+  }
+}
+
+#pasteWrapper {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+  background: #eeeeee;
+}
+
+#content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#titleWrapper {
+  position: relative;
+}
+
+#titleWrapper label {
+  width: 3em;
+  display: inline-block;
+}
+
+#title {
+  width: calc(100% - 3em - 16px);
+}
+
+#paste {
+  flex-grow: 1;
+}
+
+#pbList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
