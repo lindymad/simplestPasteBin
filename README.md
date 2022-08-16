@@ -1,7 +1,7 @@
 # Simplest Paste Bin
 The simplest paste bin
 
-To install, copy the simplePasteBin folder to your webroot, then copy the settings.ini.example file to settings.ini and set the `savePath` to the folder where you want the pastes to be saved (make sure the webserver has write permissions to that folder). 
+To install, copy the simplePasteBin folder to your webroot, then copy the settings.ini.sample file to settings.ini and set the `savePath` to the folder where you want the pastes to be saved (make sure the webserver has write permissions to that folder). 
 
 **Important** : The default savePath is `/tmp` but most OSes will clear that folder every now and then (e.g. on reboot), so it's important to change it to somewhere that is outside of `/tmp`
 

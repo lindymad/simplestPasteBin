@@ -1,0 +1,3 @@
+; Make sure to change the savePath to be outside of /tmp to prevent accidental deletion by the OS.
+
+savePath="/tmp"
