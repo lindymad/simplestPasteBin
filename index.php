@@ -100,6 +100,17 @@ if (isset($_POST['action'])) {
     <?php
 }
 
+function getSequentialTitle() {
+     $files = scandir(SAVEPATH);
+     $latest=0;
+    foreach ($files as $f) {
+        if (preg_match('/spb(\d+)\.pastebin$/', $f, $m)) {
+            if ($m[1]>$latest) $latest=$m[1];
+        }
+    }
+    return "spb".($latest+1);
+}
+
 function getList() {
     $list = [];
     $files = scandir(SAVEPATH);
@@ -121,14 +132,9 @@ function getList() {
 function doAction($parms) {
     if ($parms['action'] === "save") {
         if (!$parms['title']) {
-            $parms['title'] = randomString(4);
-            $filename = $parms['title'] . ".pastebin";
-            while (file_exists(SAVEPATH . "/" . $filename)) {
-                $parms['title'] = randomString(4);
-                $filename = $parms['title'] . ".pastebin";
-            }
-        } else $filename = $parms['title'] . ".pastebin";
-        $filename = preg_replace("/[\/\\\]/", "", $filename);
+            $parms['title'] = getSequentialTitle();
+        }
+        $filename = preg_replace("/[\/\\\]/", "", $parms['title']) . ".pastebin";
         file_put_contents(SAVEPATH . "/" . $filename, $parms['content']);
         $uri = preg_replace("/\/index\.php/", "/", $_SERVER['SCRIPT_NAME']) . "?load=" . urlencode($parms['title']);
         $duri = preg_replace("/\/index\.php/", "/", $_SERVER['SCRIPT_NAME']) . "?p=" . urlencode($parms['title']);
@@ -168,17 +174,4 @@ function printHtmlHead($htmlTitle) {
     <link rel="stylesheet" href="style.css?v=2">
 </head>
     <?php
-}
-
-function randomString($length = 32, $type = "") {
-    $randstr = '';
-    mt_srand((double)microtime() * 1000000);
-    //our array add all letters and numbers if you wish
-    if ($type === "alpha") $chars = array('a', 'b', 'c', 'd', 'e', 'f'); // , 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
-    else $chars = array('a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'); //, 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-    for ($rand = 0; $rand <= $length; $rand++) {
-        $random = mt_rand(0, count($chars) - 1);
-        $randstr .= $chars[$random];
-    }
-    return $randstr;
 }
