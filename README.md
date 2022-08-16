@@ -5,6 +5,10 @@ To install, clone the project to your webroot, then copy the settings.ini.sample
 
 **Important** : The default savePath is `/tmp` but most OSes will clear that folder every now and then (e.g. on reboot), so it's important to change it to somewhere that is outside of `/tmp`
 
-When you are ready, go to http://your.domain.com/simplePasteBin/ and paste away! If you do not specify a title, a random string will be used. `/` and `\` will be removed in any titles, as the title is used for the filename on your server where the paste is saved.
+When you are ready, go to http://your.domain.com/simplePasteBin/ and paste away! 
+
+If you do not specify a title, a random string will be used. `/` and `\` will be removed in any titles, as the title is used for the filename on your server where the paste is saved.
+
+You can hold down shift when deleting pastes to avoid the confirmation prompt.
 
 Note: this was thrown together in about an hour for https://www.reddit.com/r/selfhosted/comments/wontpt/looking_for_a_extremely_light_pastebin/, so the code is pretty raw :)

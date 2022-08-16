@@ -15,7 +15,6 @@ document.getElementById("save").addEventListener("click", function () {
             let htmlTitle = 'Simplest Pastebin : ' + p.innerText;
             history.replaceState('', htmlTitle, resp.url);
             document.title = htmlTitle;
-
             let pbs = document.querySelectorAll("#pbList a.g");
             for (let a of pbs) {
                 addGetListener(a);
@@ -32,6 +31,17 @@ document.getElementById("save").addEventListener("click", function () {
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     httpRequest.send('action=save&title=' + encodeURIComponent(title) + '&content=' + content);
     document.getElementById('paste').focus();
+});
+document.getElementById("menu").addEventListener("click", function () {
+    console.log('a');
+    if (document.body.classList.contains("expanded")) {
+        document.body.classList.remove("expanded");
+        this.innerHTML = '&gt;';
+    } else {
+        document.body.classList.add("expanded");
+        this.innerHTML = '&lt;';
+    }
+    console.log('b');
 });
 document.getElementById("clear").addEventListener("click", function () {
     document.getElementById("title").value = '';
@@ -116,29 +126,32 @@ function addGetListener(el) {
     });
 }
 
+function doDelete(me, title) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function (data) {
+        if (httpRequest.readyState === 4) {
+            let resp = JSON.parse(httpRequest.response);
+            if (resp.status === 'success') {
+                me.parentNode.remove();
+            } else {
+                alert(resp.message);
+            }
+        }
+        if (httpRequest.readyState < 0 || httpRequest.readyState > 4) {
+            alert("An error occurred.");
+        }
+    }
+    httpRequest.open('POST', 'index.php');
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send('action=delete&file=' + encodeURIComponent(title));
+}
+
 function addDeleteListener(el) {
-    el.addEventListener("click", function () {
+    el.addEventListener("click", function (e) {
         var me = this;
         var title = this.previousElementSibling.innerHTML;
-        if (confirm("Are you sure you want to delete " + title + "?")) {
-            var httpRequest = new XMLHttpRequest();
-
-            httpRequest.onreadystatechange = function (data) {
-                if (httpRequest.readyState === 4) {
-                    let resp = JSON.parse(httpRequest.response);
-                    if (resp.status === 'success') {
-                        me.parentNode.remove();
-                    } else {
-                        alert(resp.message);
-                    }
-                }
-                if (httpRequest.readyState < 0 || httpRequest.readyState > 4) {
-                    alert("An error occurred.");
-                }
-            }
-            httpRequest.open('POST', 'index.php');
-            httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            httpRequest.send('action=delete&file=' + encodeURIComponent(title));
+        if (e.shiftKey || confirm("Are you sure you want to delete " + title + "?")) {
+            doDelete(me, title);
         }
     });
 }

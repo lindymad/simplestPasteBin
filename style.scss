@@ -85,6 +85,7 @@ main {
 #search {
   margin-bottom: 10px;
   position: relative;
+
   input {
     max-width: calc(100% - 10px);
   }
@@ -102,3 +103,21 @@ main {
 .hidden {
   display: none !important;
 }
+
+#list {
+  display: none;
+}
+
+body.expanded #list {
+  display: block;
+}
+
+@media all and (min-width: 800px) {
+  #menu {
+    display: none;
+  }
+  #list {
+    display: block;
+  }
+}
+

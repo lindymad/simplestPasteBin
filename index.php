@@ -73,6 +73,7 @@ if (isset($_POST['action'])) {
         </div>
         <div id="pasteWrapper">
             <div id="top">
+                <button id="menu">&gt;</button>
                 <button id="save">Save</button>
                 <button id="clear">Clear</button>
                 <a id="copyLink" target="_blank" href="<?php

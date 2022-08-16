@@ -101,4 +101,22 @@ main {
   display: none !important;
 }
 
+#list {
+  display: none;
+}
+
+body.expanded #list {
+  display: block;
+}
+
+@media all and (min-width: 800px) {
+  #menu {
+    display: none;
+  }
+
+  #list {
+    display: block;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
