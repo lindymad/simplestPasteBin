@@ -134,7 +134,8 @@ function doAction($parms) {
         if (!$parms['title']) {
             $parms['title'] = getSequentialTitle();
         }
-        $filename = preg_replace("/[\/\\\]/", "", $parms['title']) . ".pastebin";
+        else $parms['title']=preg_replace("/[\/\\\]/", "", $parms['title']);
+        $filename =  $parms['title'] . ".pastebin";
         file_put_contents(SAVEPATH . "/" . $filename, $parms['content']);
         $uri = preg_replace("/\/index\.php/", "/", $_SERVER['SCRIPT_NAME']) . "?load=" . urlencode($parms['title']);
         $duri = preg_replace("/\/index\.php/", "/", $_SERVER['SCRIPT_NAME']) . "?p=" . urlencode($parms['title']);
