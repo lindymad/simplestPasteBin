@@ -31,6 +31,7 @@ document.getElementById("save").addEventListener("click", function () {
     httpRequest.open('POST', 'index.php')
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     httpRequest.send('action=save&title=' + encodeURIComponent(title) + '&content=' + content);
+    document.getElementById('paste').focus();
 });
 document.getElementById("clear").addEventListener("click", function () {
     document.getElementById("title").value = '';
@@ -38,6 +39,7 @@ document.getElementById("clear").addEventListener("click", function () {
     document.getElementById("copyLink").innerHTML = '';
     document.getElementById("copyLink").href = '';
     document.getElementById("copy").classList.add("hidden");
+    document.getElementById('paste').focus();
 });
 
 document.getElementById("title").addEventListener("keyup", function (e) {
@@ -100,6 +102,7 @@ function addGetListener(el) {
                     let htmlTitle = 'Simplest Pastebin : ' + p.innerText;
                     history.replaceState('', htmlTitle, resp.url);
                     document.title = htmlTitle;
+                    document.getElementById('paste').focus();
                 } else {
                     alert(resp.message);
                 }

@@ -15,7 +15,8 @@ main {
   padding: 5px;
   display: flex;
   flex-direction: column;
-  min-width: 10em;
+  width: 10em;
+  max-width: 25%;
 }
 #list a {
   cursor: pointer;
