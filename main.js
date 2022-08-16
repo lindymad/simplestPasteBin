@@ -40,6 +40,15 @@ document.getElementById("clear").addEventListener("click", function () {
     document.getElementById("copy").classList.add("hidden");
 });
 
+document.getElementById("title").addEventListener("keyup", function (e) {
+
+    let key = e.which || e.keyCode;
+    if (key === 13) {
+        let clickEvent = new Event('click');
+        document.getElementById("save").dispatchEvent(clickEvent);
+
+    }
+});
 document.getElementById("searchVal").addEventListener("keyup", function () {
     let search = document.getElementById("search");
     if (this.value.length > 0) {
@@ -139,8 +148,6 @@ function copyTextToClipboard(element, textToCopy) {
             copyText.select();
             copyText.setSelectionRange(0, 99999); /*For mobile devices*/
             document.execCommand("copy");
-        } else {
-            console.log('ERROR: No text to copy');
         }
         document.getElementById("TEMPcopy").remove();
         setTimeout(function () {
@@ -153,5 +160,4 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 }
 
-console.log(document.getElementById('paste'));
 document.getElementById('paste').focus();

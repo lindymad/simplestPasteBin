@@ -94,7 +94,7 @@ if (isset($_POST['action'])) {
             </div>
         </div>
     </main>
-    <script src="main.js?v=2"></script>
+    <script src="main.js?v=3"></script>
     </body>
     </html>
     <?php
@@ -171,7 +171,7 @@ function printHtmlHead($htmlTitle) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simplest Pastebin<?php
         echo $htmlTitle; ?></title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
     <?php
 }
