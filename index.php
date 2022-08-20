@@ -213,7 +213,3 @@ function printHtmlHead($htmlTitle) {
 </head>
     <?php
 }
-
-function checkPassword($hash) {
-
-}
