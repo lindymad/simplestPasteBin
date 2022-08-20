@@ -33,7 +33,6 @@ document.getElementById("save").addEventListener("click", function () {
     document.getElementById('paste').focus();
 });
 document.getElementById("menu").addEventListener("click", function () {
-    console.log('a');
     if (document.body.classList.contains("expanded")) {
         document.body.classList.remove("expanded");
         this.innerHTML = '&gt;';
@@ -41,7 +40,6 @@ document.getElementById("menu").addEventListener("click", function () {
         document.body.classList.add("expanded");
         this.innerHTML = '&lt;';
     }
-    console.log('b');
 });
 document.getElementById("clear").addEventListener("click", function () {
     document.getElementById("title").value = '';
