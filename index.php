@@ -27,10 +27,10 @@ if (file_exists("settings.ini")) {
     if (isset($settings['passwordHash']) && (!isset($_SESSION['authorized']) || !$_SESSION['authorized'])) {
         printHtmlHead("Password Required");
 
-        ?><body class="login"><h1>Simplest Pastebin : Password Required</h1><?php
+        ?><body class="login" onload="document.getElementById('password').focus();"><h1>Simplest Pastebin : Password Required</h1><?php
         if (isset($_POST['password'])) print "<p class='error'>Incorrect Password</p>";
         ?><form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-            <div><label for="password">Password: </label><input type="password" name="password"></div>
+            <div><label for="password">Password: </label><input type="password" name="password" id="password"></div>
             <div><input type="submit" value="Enter"></div>
         </form>
         </body></html>
