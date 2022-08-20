@@ -16,3 +16,5 @@ Note: this was thrown together in about an hour for https://www.reddit.com/r/sel
 
 ## Security Note
 This code is not designed to be facing the public internet and has little in the way of security hardening. If you want it to be public facing, you should at a minimum, protect it with a username and password using [basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication), and ensure you have SSL setup. Even better, do some hardening and send a pull request!
+
+UPDATE: You can now set a password in the settings.ini file. Once set, you will get a hash on your next visit to the pastebin page, which will replace the password entry in the settings.ini file (instructions are given). 

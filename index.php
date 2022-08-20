@@ -1,10 +1,43 @@
 <?php
+session_start();
 /**
  * Copy the settings.ini.example file to settings.ini and set the save path there.
  */
+if (isset($_GET['do']) && $_GET['do']="logout") {
+    unset($_SESSION['authorized']);
+    header("Location: ".preg_replace('/\??do=logout/', '', $_SERVER['REQUEST_URI']));
+    exit();
+}
 if (file_exists("settings.ini")) {
     $settings = parse_ini_file("settings.ini");
     if (isset($settings['savePath'])) define('SAVEPATH', $settings['savePath']);
+    if (isset($settings['password'])) {
+        $hash=base64_encode(password_hash($settings['password'], PASSWORD_DEFAULT));
+        header("Content-type:text/plain");
+        print "Please remove the line beginning \"password=\" in your settings.ini file and add:\n\npasswordHash=\"$hash\"\n";
+        exit();
+    }
+    if (isset($settings['passwordHash']) && isset($_POST['password'])) {
+        $_SESSION['authorized']=password_verify($_POST['password'], base64_decode($settings['passwordHash']));
+        if ($_SESSION['authorized']) {
+            header("Location: ".$_SERVER['REQUEST_URI']);
+            exit();
+        }
+    }
+    if (isset($settings['passwordHash']) && (!isset($_SESSION['authorized']) || !$_SESSION['authorized'])) {
+        printHtmlHead("Password Required");
+
+        ?><body class="login"><h1>Simplest Pastebin : Password Required</h1><?php
+        if (isset($_POST['password'])) print "<p class='error'>Incorrect Password</p>";
+        ?><form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+            <div><label for="password">Password: </label><input type="password" name="password"></div>
+            <div><input type="submit" value="Enter"></div>
+        </form>
+        </body></html>
+            <?php
+        exit();
+    }
+
 }
 if (isset($_GET['p'])) {
     header("Content-type: text/plain");
@@ -83,6 +116,9 @@ if (isset($_POST['action'])) {
                 echo $copyLink ? '' : 'hidden'; ?>"
                         onclick="copyTextToClipboard('#copy', document.getElementById('copyLink').href);">Copy
                 </button>
+                <?php if (isset($settings['passwordHash'])) { ?>
+            <button id="logout" onclick="location.href='index.php?do=logout';">Logout</button>
+            <?php } ?>
             </div>
             <div id="content">
                 <div id="titleWrapper">
@@ -176,4 +212,8 @@ function printHtmlHead($htmlTitle) {
     <link rel="stylesheet" href="style.css?v=3">
 </head>
     <?php
+}
+
+function checkPassword($hash) {
+
 }

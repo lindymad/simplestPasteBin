@@ -1,3 +1,8 @@
 ; Make sure to change the savePath to be outside of /tmp to prevent accidental deletion by the OS.
 
 savePath="/tmp"
+
+; Optional - if you want a password set it here, then go to the pastebin page to get the hash, then replace the
+; password here with the hash as per the instructions.
+
+; password="YOURPASSWORD"

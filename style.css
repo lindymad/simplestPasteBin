@@ -5,6 +5,18 @@ html, body {
   margin: 0;
 }
 
+body.login {
+  padding: 10px;
+}
+body.login h1 {
+  margin: 0 0 10px;
+}
+body.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 main {
   display: flex;
   height: 100%;
@@ -41,6 +53,10 @@ main {
 }
 #top input {
   flex-grow: 1;
+}
+
+#logout {
+  margin-left: auto;
 }
 
 #content {
