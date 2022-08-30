@@ -137,3 +137,34 @@ body.expanded #list {
   }
 }
 
+button {
+  display: inline-block;
+  position: relative;
+}
+button.loading {
+  color:#ccc;
+}
+button.loading::after {
+ content: "";
+position: absolute;
+top: 0.2em;
+left: 0.8em;
+display: inline-block;
+width: 0.8em;
+height: 0.8em;
+border: 2px dashed #666;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+-webkit-animation: spin 2.5s linear infinite;
+}
+
+      @keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }

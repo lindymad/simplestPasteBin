@@ -1,9 +1,12 @@
 document.getElementById("save").addEventListener("click", function () {
+    document.getElementById("save").classList.add("loading");
     let title = document.getElementById("title").value;
     let content = document.getElementById("paste").value;
     var httpRequest = new XMLHttpRequest()
     httpRequest.onreadystatechange = function (data) {
         if (httpRequest.readyState === 4) {
+            document.getElementById("save").classList.remove("loading");
+
             let resp = JSON.parse(httpRequest.response);
             document.getElementById("pbList").innerHTML = resp.newList;
             document.getElementById("title").value = resp.title;
@@ -24,6 +27,7 @@ document.getElementById("save").addEventListener("click", function () {
                 addDeleteListener(a);
             }
         } else if (httpRequest.readyState < 0 || httpRequest.readyState > 4) {
+            document.getElementById("save").classList.remove("loading");
             alert("An error occurred.");
         }
     }
