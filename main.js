@@ -46,13 +46,18 @@ document.getElementById("menu").addEventListener("click", function () {
     }
 });
 document.getElementById("clear").addEventListener("click", function () {
+   clearAll();
+});
+
+function clearAll() {
     document.getElementById("title").value = '';
     document.getElementById("paste").value = '';
     document.getElementById("copyLink").innerHTML = '';
     document.getElementById("copyLink").href = '';
     document.getElementById("copy").classList.add("hidden");
+    history.replaceState('', 'simplest Pastebin', './');
     document.getElementById('paste').focus();
-});
+}
 
 document.getElementById("title").addEventListener("keyup", function (e) {
 
@@ -98,10 +103,14 @@ for (let a of pbs) {
 
 function addGetListener(el) {
     el.addEventListener("click", function () {
+        clearAll();
         var httpRequest = new XMLHttpRequest()
         var title = this.innerHTML;
+        var me = this;
+        document.getElementById("pasteImmediateWrapper").classList.add("loading");
         httpRequest.onreadystatechange = function (data) {
             if (httpRequest.readyState === 4) {
+                document.getElementById("pasteImmediateWrapper").classList.remove("loading");
                 let resp = JSON.parse(httpRequest.response);
                 if (resp.status === 'success') {
                     document.getElementById("title").value = title;
@@ -119,6 +128,8 @@ function addGetListener(el) {
                     alert(resp.message);
                 }
             } else if (httpRequest.readyState < 0 || httpRequest.readyState > 4) {
+                document.getElementById("pasteImmediateWrapper").classList.remove("loading");
+
                 alert("An error occurred.");
             }
         }

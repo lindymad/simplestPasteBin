@@ -126,8 +126,8 @@ if (isset($_POST['action'])) {
                     <input id="title" <?php
                     echo $titleVal; ?>>
                 </div>
-                <textarea id="paste"><?php
-                    echo $contentVal; ?></textarea>
+                <div id="pasteImmediateWrapper"><textarea id="paste"><?php
+                        echo $contentVal; ?></textarea></div>
             </div>
         </div>
     </main>
