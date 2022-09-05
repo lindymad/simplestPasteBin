@@ -88,6 +88,11 @@ main {
   padding: 0;
   list-style-type: none;
 }
+#pbList li {
+  margin-bottom: 0.2em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.2em;
+}
 
 .error {
   margin: 10px;
@@ -139,8 +144,23 @@ button {
   position: relative;
 }
 
-button.loading {
+button.loaded::before {
+  content: "✔";
+  color: darkgreen;
+  position: absolute;
+  -webkit-animation: fadeOut 1.5s;
+  animation: fadeOut 1.5s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+button.loading, button.loaded {
   color: #ccc;
+}
+
+button.loadedFade {
+  color: inherit;
+  transition: color 1s linear;
 }
 
 #pasteImmediateWrapper {
@@ -179,6 +199,28 @@ button.loading::after {
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.01;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.01;
+  }
+  100% {
+    opacity: 0;
   }
 }
 

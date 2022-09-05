@@ -5,16 +5,19 @@ html, body {
 }
 
 body.login {
-  padding:10px;
+  padding: 10px;
+
   h1 {
-    margin:0 0 10px;
+    margin: 0 0 10px;
   }
+
   form {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 }
+
 main {
   display: flex;
   height: 100%;
@@ -57,7 +60,7 @@ main {
 }
 
 #logout {
-  margin-left:auto;
+  margin-left: auto;
 }
 
 
@@ -89,6 +92,11 @@ main {
   margin: 0;
   padding: 0;
   list-style-type: none;
+  li {
+    margin-bottom: 0.2em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.2em;
+  }
 }
 
 .error {
@@ -141,42 +149,89 @@ button {
   display: inline-block;
   position: relative;
 }
-button.loading {
-  color:#ccc;
+
+button.loaded::before {
+  content: '✔';
+  color: darkgreen;
+  position: absolute;
+
+  -webkit-animation: fadeOut 1.5s;
+  animation: fadeOut 1.5s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
 }
+
+button.loading, button.loaded {
+  color: #ccc;
+}
+button.loadedFade {
+  color: inherit;
+  transition: color 1s linear;
+}
+
 #pasteImmediateWrapper {
   position: relative;
   flex-grow: 1;
   display: flex;
 
 }
+
 #pasteImmediateWrapper.loading::after, button.loading::after {
- content: "";
-position: absolute;
-display: inline-block;
-width: 0.8em;
-height: 0.8em;
-border: 2px dashed #666;
-border-radius: 50%;
-animation: spin 1s linear infinite;
--webkit-animation: spin 2.5s linear infinite;
-}
-button.loading::after {
- top: 0.2em;
-left: 0.8em;
-}
-#pasteImmediateWrapper.loading::after{
- top: 0.4em;
-left: 0.4em;
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border: 2px dashed #666;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  -webkit-animation: spin 2.5s linear infinite;
 }
 
-      @keyframes spin {
-        to {
-          -webkit-transform: rotate(360deg);
-        }
-      }
-      @-webkit-keyframes spin {
-        to {
-          -webkit-transform: rotate(360deg);
-        }
-      }
+button.loading::after {
+  top: 0.2em;
+  left: 0.8em;
+}
+
+#pasteImmediateWrapper.loading::after {
+  top: 0.4em;
+  left: 0.4em;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.01;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.01;
+  }
+  100% {
+    opacity: 0;
+
+  }
+}
+

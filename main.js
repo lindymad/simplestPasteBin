@@ -1,11 +1,20 @@
+
 document.getElementById("save").addEventListener("click", function () {
+    document.getElementById("save").classList.remove("loadedFade");
+    document.getElementById("save").classList.remove("loaded");
     document.getElementById("save").classList.add("loading");
+
+    clearTimeout(window.sto1);
+    clearTimeout(window.sto2);
     let title = document.getElementById("title").value;
     let content = document.getElementById("paste").value;
     var httpRequest = new XMLHttpRequest()
     httpRequest.onreadystatechange = function (data) {
         if (httpRequest.readyState === 4) {
             document.getElementById("save").classList.remove("loading");
+            document.getElementById("save").classList.add("loaded");
+            window.sto1=setTimeout(function() {document.getElementById("save").classList.add("loadedFade");}, 500);
+            window.sto2=setTimeout(function() {document.getElementById("save").classList.remove("loadedFade");document.getElementById("save").classList.remove("loaded");}, 2100);
 
             let resp = JSON.parse(httpRequest.response);
             document.getElementById("pbList").innerHTML = resp.newList;
@@ -46,7 +55,7 @@ document.getElementById("menu").addEventListener("click", function () {
     }
 });
 document.getElementById("clear").addEventListener("click", function () {
-   clearAll();
+    clearAll();
 });
 
 function clearAll() {
@@ -67,6 +76,15 @@ document.getElementById("title").addEventListener("keyup", function (e) {
         document.getElementById("save").dispatchEvent(clickEvent);
 
     }
+});
+document.getElementById("searchVal").addEventListener("keydown", function (e) {
+    if (e.key!=="Backspace" && search.classList.contains("empty")) {
+        search.classList.remove("empty");
+    }
+    else if (e.key === "Backspace" && this.value.length <= 1) {
+        search.classList.add("empty");
+    }
+
 });
 document.getElementById("searchVal").addEventListener("keyup", function () {
     let search = document.getElementById("search");
